@@ -38,4 +38,32 @@ public enum Either<Left, Right> {
         case .right(let value): return .left(value)
         }
     }
+
+    /// Evaluates the given closures based on the side set, passing the `left|right` value as a parameter.
+    /// - Parameters:
+    ///   - onLeft: A closure that takes the **left** value of the instance.
+    ///   - onRight: A closure that takes the **right** value of the instance.
+    /// - Returns: The result of the given closure whether is **left** or **right**.
+    public func fold<Value>(_ onLeft: (Left) -> Value, _ onRight: (Right) -> Value) -> Value {
+        switch self {
+        case .left(let left):
+            return onLeft(left)
+        case .right(let right):
+            return onRight(right)
+        }
+    }
+
+    /// Evaluates the given key-paths based on the side set, passing the `left|right` value as a parameter.
+    /// - Parameters:
+    ///   - onLeftKeyPath: A key-path that zooms-in into the left instance - if any.
+    ///   - onRightKeyPath: A key-path that zooms-in into the right instance - if any.
+    /// - Returns: The value of the key-path whether is **left** or **right**.
+    public func fold<SubValue>(_ onLeftKeyPath: KeyPath<Left, SubValue>, _ onRightKeyPath: KeyPath<Right, SubValue>) -> SubValue {
+        switch self {
+        case .left(let left):
+            return left[keyPath: onLeftKeyPath]
+        case .right(let right):
+            return right[keyPath: onRightKeyPath]
+        }
+    }
 }
