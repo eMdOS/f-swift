@@ -1,0 +1,7 @@
+.DS_Store
+### SwiftPM ###
+/Packages
+/.build
+xcuserdata/
+/*.xcodeproj
+DerivedData/
