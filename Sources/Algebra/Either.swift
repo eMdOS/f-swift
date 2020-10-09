@@ -1,5 +1,4 @@
-/// Represents a value of one of 2 possible types (a disjoint union.)
-/// An type of `Either` is either an value of `Left` or `Right`.
+/// Represents a value of one of 2 possible types (a disjoint union). A type of `Either` is either a value of `Left` or `Right`.
 public enum Either<Left, Right> {
     case left(Left)
     case right(Right)
